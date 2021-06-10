@@ -6,6 +6,8 @@
   changed_when: False
   args:
     executable: "/bin/bash"
+  tags:
+    - cert2
 
 - name: Set default action to only render template via Helm
   set_fact:
@@ -19,8 +21,8 @@
   delegate_to: 127.0.0.1
   run_once: True
   when:
-    - action is defined
-    - '"install" in action'
+    - cm_action is defined
+    - '"install" in cm_action'
 
 - name: Set action to upgrade via Helm
   set_fact:
@@ -28,8 +30,8 @@
   delegate_to: 127.0.0.1
   run_once: True
   when:
-    - action is defined
-    - '"upgrade" in action'
+    - cm_action is defined
+    - '"upgrade" in cm_action'
 
 - name: Set action to delete via Helm
   set_fact:
@@ -37,8 +39,8 @@
   delegate_to: 127.0.0.1
   run_once: True
   when:
-    - action is defined
-    - '"delete" in action'
+    - cm_action is defined
+    - '"delete" in cm_action'
 
 - name: Set action to install issuer
   set_fact:
@@ -46,8 +48,8 @@
   delegate_to: 127.0.0.1
   run_once: True
   when:
-    - action is defined
-    - '"install-issuer" in action'
+    - cm_action is defined
+    - '"install-issuer" in cm_action'
 
 - name: Set action to delete issuer
   set_fact:
@@ -55,8 +57,8 @@
   delegate_to: 127.0.0.1
   run_once: True
   when:
-    - action is defined
-    - '"delete-issuer" in action'
+    - cm_action is defined
+    - '"delete-issuer" in cm_action'
 
-- name: Include tasks to execute requested action
+- name: Include tasks to execute requested cm_action
   include_tasks: "tasks/{{ deploy_action|lower }}.yml"
