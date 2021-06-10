@@ -33,5 +33,6 @@
       - app=webhook
   register: cert_manager_webhook_deployment_status
   until: (cert_manager_webhook_deployment_status.resources[0].status.readyReplicas | default(0) | int ) >= 1
-  retries: 30
+  retries: 10
   delay: 15
+  delegate_to: 127.0.0.1
