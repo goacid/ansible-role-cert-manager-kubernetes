@@ -19,3 +19,4 @@
                   class: "{{ item.solvers_http01_ingress_class }}"
   loop: "{{ cert_manager_le_clusterissuer_options }}"
   when: cert_manager_le_clusterissuer_options is defined
+  delegate_to: 127.0.0.1
